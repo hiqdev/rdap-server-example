@@ -1,0 +1,33 @@
+{
+  "name": "hiqdev/rdap-server-example",
+  "type": "project",
+  "description": "Rdap Server Example",
+  "keywords": [
+    "rdap",
+    "server",
+    "whois",
+    "example"
+  ],
+  "require": {
+    "hiqdev/rdap": "dev-master",
+    "hiqdev/rdap-whois-proxy": "dev-master",
+    "ext-json": "*",
+    "monolog/monolog": "^1.24",
+    "php": ">=7.2",
+    "php-di/php-di": "^6.0",
+    "slim/psr7": "^0.5",
+    "slim/slim": "^4.1"
+  },
+  "require-dev": {
+    "hiqdev/hidev-php": "dev-master",
+    "hiqdev/hidev-hiqdev": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "scripts": {
+    "start": "php -S localhost:8080 -t public"
+  }
+}

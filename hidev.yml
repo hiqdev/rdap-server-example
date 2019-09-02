@@ -1,0 +1,5 @@
+package:
+    type: project
+    name: rdap-server-example
+    title: 'Example of RDAP server implementation that acts as a bridge from WHOIS to RDAP'
+    keywords: 'rdap, server, whois, example'

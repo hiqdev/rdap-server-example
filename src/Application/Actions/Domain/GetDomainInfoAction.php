@@ -7,6 +7,7 @@ use hiqdev\rdap\core\Domain\ValueObject\DomainName;
 use hiqdev\rdap\core\Infrastructure\Provider\DomainProviderInterface;
 use hiqdev\rdap\core\Infrastructure\Serialization\SerializerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\StreamFactoryInterface;
 use Slim\Psr7\Request;
 
 final class GetDomainInfoAction
@@ -19,11 +20,16 @@ final class GetDomainInfoAction
      * @var SerializerInterface
      */
     private $serializer;
+    /**
+     * @var StreamFactoryInterface
+     */
+    private $streamFactory;
 
-    public function __construct(DomainProviderInterface $domainProvider, SerializerInterface $serializer)
+    public function __construct(DomainProviderInterface $domainProvider, SerializerInterface $serializer, StreamFactoryInterface $streamFactory)
     {
         $this->domainProvider = $domainProvider;
         $this->serializer = $serializer;
+        $this->streamFactory = $streamFactory;
     }
 
     public function __invoke(Request $request, Response $response, array $args): Response
@@ -36,6 +42,6 @@ final class GetDomainInfoAction
 
         return $response->withHeader('Content-Type', 'application/json')
             ->withStatus(200)
-            ->withBody($this->serializer->serialize($domain));
+            ->withBody($this->streamFactory->createStream($this->serializer->serialize($domain)));
     }
 }

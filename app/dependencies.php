@@ -2,11 +2,18 @@
 declare(strict_types=1);
 
 use DI\ContainerBuilder;
+use hiqdev\rdap\core\Infrastructure\Provider\DomainProviderInterface;
+use hiqdev\rdap\core\Infrastructure\Serialization\SerializerInterface;
+use hiqdev\rdap\core\Infrastructure\Serialization\Symfony\SymfonySerializer;
+use hiqdev\rdap\WhoisProxy\Provider\WhoisDomainProvider;
+use Iodev\Whois\Whois;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Log\LoggerInterface;
+use Slim\Psr7\Factory\StreamFactory;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
@@ -24,10 +31,9 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
-        \hiqdev\rdap\core\Infrastructure\Serialization\SerializerInterface::class
-            => DI\autowire(\hiqdev\rdap\core\Infrastructure\Serialization\Symfony\SymfonySerializer::class),
-        \hiqdev\rdap\core\Infrastructure\Provider\DomainProviderInterface::class
-            => DI\autowire(\hiqdev\rdap\WhoisProxy\Provider\WhoisDomainProvider::class),
-        \Iodev\Whois\Whois::class => function() { return \Iodev\Whois\Whois::create(); }
+        SerializerInterface::class => DI\autowire(SymfonySerializer::class),
+        DomainProviderInterface::class => DI\autowire(WhoisDomainProvider::class),
+        StreamFactoryInterface::class => DI\autowire(StreamFactory::class),
+        Whois::class => function () { return Whois::create(); }
     ]);
 };

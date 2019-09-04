@@ -47,6 +47,7 @@ $request = $serverRequestCreator->createServerRequestFromGlobals();
 // Create Error Handler
 $responseFactory = $app->getResponseFactory();
 $errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
+$errorHandler->setDisplayErrorDetailsFlag($displayErrorDetails);
 
 // Create Shutdown Handler
 $shutdownHandler = new ShutdownHandler($request, $errorHandler, $displayErrorDetails);

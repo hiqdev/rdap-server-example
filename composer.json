@@ -12,6 +12,7 @@
     "hiqdev/rdap": "dev-master",
     "hiqdev/rdap-whois-proxy": "dev-master",
     "ext-json": "*",
+    "ext-intl": "*",
     "monolog/monolog": "^1.24",
     "php": ">=7.2",
     "php-di/php-di": "^6.0",

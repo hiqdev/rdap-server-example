@@ -1,8 +1,8 @@
 # RDAP server application example
 
-This is a sample application in using the [HiQDev RDAP library](https://github.com/hiqdev/rdap) which packs domain info into PHP objects and can serialize it to JSON string.
+This is a sample application uses the [HiQDev RDAP library](https://github.com/hiqdev/rdap) which packs domain info into PHP objects and can serialize it to JSON string.
 
-Also, this example using [HiQDev RDAP-Whois proxy](https://github.com/hiqdev/rdap-whois-proxy) which retrieves the domain data from the WHOIS to RDAP to show working example.
+This implementation fetches public WHOIS servers, parses the response by [HiQDev RDAP-Whois proxy](https://github.com/hiqdev/rdap-whois-proxy), fills RDAP objects and responds according to the RFC7483.
 
 # Install and run 
 

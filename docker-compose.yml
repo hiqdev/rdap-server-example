@@ -1,13 +1,24 @@
-version: '3.7'
+version: '3'
 
 services:
-  rdap:
-    image: php:7-alpine
-    working_dir: /var/www
-    command: php -S 0.0.0.0:8080 -t public public/index.php
-    environment:
-      docker: "true"
+  nginx:
+    image: nginx:latest
     ports:
-      - 80:8080
+      - "80"
     volumes:
-      - .:/var/www
+      - ./:/app
+      - ./.docker/nginx/etc/nginx/conf.d:/etc/nginx/conf.d
+      - ./.docker/nginx/var/log/nginx:/var/log/nginx
+    networks:
+      - local-network
+
+  php-fpm:
+    image: hiqdev/php:7.3-fpm
+    volumes:
+      - ./:/app
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    driver: bridge
